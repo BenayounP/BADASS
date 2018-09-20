@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ************** -->
+    <!-- COMMON STRINGS -->
+    <!-- ************** -->
+
+    <string name="blank" translatable="false"></string>
+    <string name="colon_with_spaces">:\u0020</string>
+    <string name="dashes">--</string>
+    <string name="and">and</string>
+    <string name="check" translatable="false">\u2713</string>
+
+    <!--Durations -->
+    <string name="duration">Duration</string>
+    <string name="start">Start</string>
+    <string name="between">Between</string>
+    <string name="end">End</string>
+    <string name="from">from</string>
+
+    <!-- Periods -->
+    <string name="day_initial">D</string>
+    <string name="day">day</string>
+    <string name="days">days</string>
+    <string name="hour_little">h</string>
+    <string name="hour">hour</string>
+    <string name="hours">hours</string>
+    <string name="minute_little">min</string>
+    <string name="minute">minute</string>
+    <string name="minutes">minutes</string>
+    <string name="inf_to_1_min">\u003C 1 min</string>
+    <string name="seconds_little">sec</string>
+    <string name="second">second</string>
+    <string name="seconds">seconds</string>
+    <string name="milliseconds_little">ms</string>
+    <string name="on_date">on</string>
+    <string name="week">week</string>
+    <string name="month">month</string>
+    <string name="today">today</string>
+    <string name="tomorrow">tomorrow</string>
+    <string name="after_tomorrow">after tomorrow</string>
+    <string name="ab_today">tod</string>
+    <string name="yesterday">yesterday</string>
+    <string name="this_week">this week</string>
+    <string name="this_month">this month</string>
+    <string name="all_time">all time</string>
+
+    <!-- Week -->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string-array name="days_of_week">
+        <item>@string/sunday</item>
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+    </string-array>
+
+    <string name="monday_diminutive">Mond</string>
+    <string name="tuesday_diminutive">Tue</string>
+    <string name="wednesday_diminutive">Wed</string>
+    <string name="thursday_diminutive">Thu</string>
+    <string name="friday_diminutive">Fri</string>
+    <string name="saturday_diminutive">Sat</string>
+    <string name="sunday_diminutive">Sun</string>
+
+    <string-array name="days_of_week_diminutives">
+        <item>@string/sunday_diminutive</item>
+        <item>@string/monday_diminutive</item>
+        <item>@string/tuesday_diminutive</item>
+        <item>@string/wednesday_diminutive</item>
+        <item>@string/thursday_diminutive</item>
+        <item>@string/friday_diminutive</item>
+        <item>@string/saturday_diminutive</item>
+    </string-array>
+
+    <!-- *************************** -->
+    <!--     LOG IN FILE PERMISSION -->
+    <!-- *************************** -->
+    <string name="permission_write">We need your permission to write dev log</string>
+
+
+</resources>

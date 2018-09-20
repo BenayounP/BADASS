@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- android navigation bar-->
+    <dimen name="android_navigation_bar">48dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_nope">0dp</dimen>
+    <dimen name="padding_tiniest">1dp</dimen>
+	<dimen name="padding_micro">2dp</dimen>
+	<dimen name="padding_tiny">3dp</dimen>
+    <dimen name="padding_cute">4dp</dimen>
+	<dimen name="padding_standard">5dp</dimen>
+	<dimen name="padding_medium">6dp</dimen>
+	<dimen name="padding_big">8dp</dimen>
+    <dimen name="padding_big_big">12dp</dimen>
+	<dimen name="padding_huge">14dp</dimen>
+	<dimen name="padding_gargantua">20dp</dimen>
+	<dimen name="padding_40dp">40dp</dimen>
+
+
+</resources>
