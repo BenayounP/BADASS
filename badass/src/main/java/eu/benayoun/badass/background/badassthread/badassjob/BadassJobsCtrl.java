@@ -80,14 +80,14 @@ public class BadassJobsCtrl
 
 	protected boolean IsJobsPending()
 	{
-		boolean thereIsUpdates = false;
+		boolean thereIsJobsPending = false;
 		long    currentTimeInMs = BadassTimeUtils.getCurrentTimeInMs();
 		int bgndTasksListSize = ArrayListUtils.getSize(badassJobList);
 		for (int i = 0; i < bgndTasksListSize; i++)
 		{
-			thereIsUpdates = badassJobList.get(i).isStartRequired(currentTimeInMs);
-			if (thereIsUpdates) break;
+			thereIsJobsPending = badassJobList.get(i).isStartRequired(currentTimeInMs);
+			if (thereIsJobsPending) break;
 		}
-		return thereIsUpdates;
+		return thereIsJobsPending;
 	}
 }

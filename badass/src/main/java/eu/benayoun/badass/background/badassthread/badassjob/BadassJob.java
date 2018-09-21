@@ -63,7 +63,7 @@ public abstract class BadassJob
 	public boolean isStartRequired(long currentTimeInMs)
 	{
 		boolean shouldWork=false;
-		if (status == START_ASAP || status == START_AT_NEXT_CALL) shouldWork = true;
+		if (status == START_ASAP) shouldWork = true;
 		else if (status == RESOLVE_PROBLEM || status == SCHEDULED)
 		{
 			shouldWork = currentTimeInMs >= nextStartTimeInMs;
@@ -73,7 +73,7 @@ public abstract class BadassJob
 
 	public void StartIfRequired(long currentTimeInMs)
 	{
-		if (isStartRequired(currentTimeInMs))
+		if (isStartRequired(currentTimeInMs) || status == START_AT_NEXT_CALL)
 		{
 			BadassLog.logInFile("## " + getName() + "  works.");
 			work();
