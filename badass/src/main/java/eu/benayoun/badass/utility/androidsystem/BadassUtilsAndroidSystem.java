@@ -8,7 +8,7 @@ import eu.benayoun.badass.Badass;
 /**
  * Created by Pierre on 28/12/2014.
  */
-public class AndroidSystemUtils
+public class BadassUtilsAndroidSystem
 {
     public static float getDeviceWidth()
     {

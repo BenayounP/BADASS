@@ -25,6 +25,7 @@ public class BadassLog
 
 	protected static String               log_tag                    = "BENAYOUN";
 	protected static boolean              allowLogInFile             = false;
+	protected static boolean isVerbose = false;
 	protected static BadassPermissionCtrl logInFilePermissionManager =null;
 
 
@@ -33,7 +34,8 @@ public class BadassLog
 	protected static boolean cantCreateFolderMentioned = false;
 
 	// CONFIG
-	// logfileName
+
+    // logfileName
 	protected static final String LOGS_GENERAL_DIRECTORY = "android_logs" + File.separator;
 	protected static  String logsFileName = "logMethodName.txt";
 
@@ -47,11 +49,17 @@ public class BadassLog
 		logAllowed = true;
 	}
 
+	public static void beVerbose()
+	{
+        isVerbose = true;
+	}
+
+
 	public static void allowLogInFile(String logsFileName)
 	{
 		allowLogInFile = true;
 		logInFilePermissionManager=Badass.getPermissionManager(Manifest.permission.WRITE_EXTERNAL_STORAGE, R.string.permission_write,null);
-		logsFileName = logsFileName;
+        BadassLog.logsFileName = logsFileName;
 	}
 
 	public static boolean isAllowLogInFile()
@@ -99,7 +107,7 @@ public class BadassLog
 		{
 			if (toLog == null)
 			{
-				toLog = "No specific message emmited";
+				toLog = "No specific message";
 			}
 			Log.d(log_tag, "ERROR : " + toLog);
 		}
@@ -117,7 +125,7 @@ public class BadassLog
 	{
 		if (object == null)
 		{
-			log(object.getClass().getSimpleName() + " is null");
+			log(Object.class.getSimpleName() + " is null");
 		}
 	}
 
@@ -131,6 +139,19 @@ public class BadassLog
 	{
 		internalLog(string,false);
 	}
+
+	// verbose
+    public static void verboseLogInFile(String string)
+    {
+        if (isVerbose) logInFile(string);
+    }
+
+
+    public static void verboseLog(String string)
+    {
+
+        if (isVerbose) log(string);
+    }
 
 	// File
 
@@ -175,15 +196,12 @@ public class BadassLog
 	public static void clearLogFile()
 	{
 		File logFile =getLogFile();
-		if (logFile!=null)
-		{
-			boolean isDeleted =	logFile.delete();
-			if (isDeleted == false)
-			{
-				Log.d(log_tag,"Can't delete logMethodName file." );
-			}
-		}
-	}
+        boolean isDeleted =	logFile.delete();
+        if (isDeleted == false)
+        {
+            Log.d(log_tag,"Can't delete logMethodName file." );
+        }
+    }
 
 	// METHOD NAME
 
@@ -378,7 +396,6 @@ public class BadassLog
 			{
 				try
 				{
-
 					if (cantCreateFileMentioned == false)
 					{
 						Log.d(log_tag, "Create Log File.");

@@ -14,13 +14,13 @@ public class BadassPermissionCtrl
 {
 	protected int id;
 	protected String name;
-	protected PermissionListenerContract listener;
+	protected BadassPermissionListenerContract listener;
 	protected int standardExplanationStringId;
 	protected int explanationForUsersThatCheckedNeverAskAgainStringId=-1;
 	protected boolean userHasCheckedNeverAskAgain = false;
 
 
-	public BadassPermissionCtrl(int id, String name, int standardExplanationStringId, PermissionListenerContract badassPermissionListener)
+	public BadassPermissionCtrl(int id, String name, int standardExplanationStringId, BadassPermissionListenerContract badassPermissionListener)
 	{
 		this.id = id;
 		this.name = name;

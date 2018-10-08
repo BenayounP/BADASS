@@ -1,6 +1,7 @@
 package eu.benayoun.badass.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import eu.benayoun.badass.Badass;
@@ -74,7 +75,7 @@ public class BadassActivity extends AppCompatActivity
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode,
-	                                       String permissions[], int[] grantResults)
+                                           @NonNull String permissions[], @NonNull int[] grantResults)
 	{
 		Badass.onRequestPermissionsResult(this,requestCode,permissions,grantResults);
 	}

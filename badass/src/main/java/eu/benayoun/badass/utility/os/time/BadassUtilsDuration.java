@@ -11,7 +11,7 @@ import eu.benayoun.badass.utility.model.DurationInMs;
 /**
  * Created by Pierre on 29/12/2015.
  */
-public class DurationUtils
+public class BadassUtilsDuration
 {
 	static final int INDEX_DAY  = 0;
 	static final int INDEX_HOUR = 1;
@@ -47,8 +47,8 @@ public class DurationUtils
 
 	static public DurationInMs getToday()
 	{
-		long nowInMs = BadassTimeUtils.getCurrentTimeInMs();
-		return new DurationInMs(BadassTimeUtils.getStartOfTheDayInMs(nowInMs), BadassTimeUtils.getEndOfDayInMs(nowInMs));
+		long nowInMs = BadassUtilsTime.getCurrentTimeInMs();
+		return new DurationInMs(BadassUtilsTime.getStartOfTheDayInMs(nowInMs), BadassUtilsTime.getEndOfDayInMs(nowInMs));
 	}
 
 	static public String getRoundedDurationString(long totalMs)
@@ -324,20 +324,20 @@ public class DurationUtils
 
 	static long getDurationFromFirstDayOfMonth(long timeInMs)
 	{
-		int deltaDays = BadassTimeUtils.getDayOfMonth(timeInMs)-1;
+		int deltaDays = BadassUtilsTime.getDayOfMonth(timeInMs)-1;
 		return getDurationFromDeltaDay(timeInMs, deltaDays);
 	}
 
 	static long getDurationFromFirstDayOfWeek(long timeInMs, int firstDayOfWeek)
 	{
-		int thisDayOfWeek = BadassTimeUtils.getDayOfWeek(timeInMs);
+		int thisDayOfWeek = BadassUtilsTime.getDayOfWeek(timeInMs);
 		int deltaDays = MathUtils.classicMod(thisDayOfWeek - firstDayOfWeek, 7);
 		return getDurationFromDeltaDay(timeInMs, deltaDays);
 	}
 
 	static long getDurationFromDeltaDay(long timeInMs, int deltaDays)
 	{
-		return timeInMs - BadassTimeUtils.getStartOfTheDayInMs(timeInMs) + deltaDays*DateUtils.DAY_IN_MILLIS;
+		return timeInMs - BadassUtilsTime.getStartOfTheDayInMs(timeInMs) + deltaDays*DateUtils.DAY_IN_MILLIS;
 	}
 
 

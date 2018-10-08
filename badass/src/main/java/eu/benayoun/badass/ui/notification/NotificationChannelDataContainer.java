@@ -15,7 +15,21 @@ import eu.benayoun.badass.Badass;
 public class NotificationChannelDataContainer
 {
 
-	public NotificationChannelDataContainer(String channelId, String channelName, String chanelDescription)
+    // CHANNEL
+    public String channelId;
+    public String channelName;
+
+    public String chanelDescription;
+
+    public int channelImportance = NotificationManager.IMPORTANCE_DEFAULT;
+    public boolean channelEnableLights = false;
+    public int channelLightColorArgb=-1;
+
+    public boolean channelEnableVibration  = false;
+    public long[]  channelVibrationPattern = new long[]{0, 0, 0, 0,0, 0, 0, 0, 0};
+    
+    
+    public NotificationChannelDataContainer(String channelId, String channelName, String chanelDescription)
 	{
 		this.channelId = channelId;
 		this.channelName = channelName;
@@ -26,25 +40,13 @@ public class NotificationChannelDataContainer
 		}
 	}
 
-	// CHANNEL
-	public String channelId;
-	public String channelName;
-	public int channelImportance = NotificationManager.IMPORTANCE_DEFAULT;
-	public String chanelDescription;
-
-	public boolean channelEnableLights = false;
-	public int channelLightColorArgb=-1;
-
-	public boolean channelEnableVibration  = false;
-	public long[]  channelVibrationPattern = new long[]{0, 0, 0, 0,0, 0, 0, 0, 0};
-
 
 	/**
 	 * INTERNAL COOKING
 	 */
 
 	@TargetApi(Build.VERSION_CODES.O)
-	protected void setNotificationChannel()
+    protected void setNotificationChannel()
 	{
 		Context context = Badass.getApplicationContext();
 		NotificationManager notificationManager =

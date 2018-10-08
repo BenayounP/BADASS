@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by PierreB on 15/03/2018.
  */
 
-public interface UIEventsContract
+public interface BadassUIEventsContract
 {
 	ArrayList<Boolean> getFreshUiEventsList();
 	String getEventName(int eventId);

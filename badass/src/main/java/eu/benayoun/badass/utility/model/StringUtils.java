@@ -1,5 +1,6 @@
 package eu.benayoun.badass.utility.model;
 
+import android.annotation.SuppressLint;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -59,7 +60,8 @@ public class StringUtils
 		return getNiceFloat(MathUtils.getToughRound(originalValue,digitsPreserved));
 	}
 
-	static public String getNiceFloat(float f)
+	@SuppressLint("DefaultLocale")
+    static public String getNiceFloat(float f)
 	{
 		String toReturn;
 		if (f == (int) f)

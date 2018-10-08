@@ -2,10 +2,16 @@ package eu.benayoun.badass.background.badassthread.schedulemanager;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.LocalBroadcastManager;
 
 import eu.benayoun.badass.Badass;
+import eu.benayoun.badass.ui.BadassUIBroadCastMngr;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 /**
@@ -15,28 +21,33 @@ import eu.benayoun.badass.utility.ui.BadassLog;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ScheduleJobService extends JobService
 {
-	static final public int JOB_ID = 1234567;
+	private static final int JOB_ID = 1234567;
+	public static final String SCHEDULE_JOB_SERVICE_INTENT= "SCHEDULE_JOB_SERVICE_INTENT";
+	JobParameters mJobParameters;
+
+    private BroadcastReceiver badassThreadMngrMessageReceiver;
 
 	@Override
 	public boolean onStartJob(final JobParameters jobParameters)
 	{
-		new Thread(new Runnable() {
-			@Override
-			public void run()
-			{
-				BadassLog.logInFile("##! ScheduleJobService START");
-				Badass.startBadassThread();
-				jobFinished(jobParameters,false);
-				BadassLog.logInFile("##! ScheduleJobService END");
-			}
-		}).start();
+        mJobParameters=jobParameters;
+        badassThreadMngrMessageReceiver= new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
+                jobFinished(mJobParameters, false);
+            }
+        };
+        LocalBroadcastManager
+                .getInstance(Badass.getApplicationContext()).registerReceiver(badassThreadMngrMessageReceiver, new IntentFilter(SCHEDULE_JOB_SERVICE_INTENT));
+        Badass.launchBadassThread();
 		return false;
 	}
 
 	@Override
 	public boolean onStopJob(JobParameters jobParameters)
 	{
-		BadassLog.logInFile("##! ScheduleJobService STOPPED");
+		BadassLog.verboseLogInFile("##! ScheduleJobService onStopJob");
 		return false;
 	}
 
@@ -46,6 +57,7 @@ public class ScheduleJobService extends JobService
 		return null;
 	}
 
+    @SuppressWarnings("SameReturnValue")
 	public static int getJobServiceId()
 	{
 		return ScheduleJobService.JOB_ID;

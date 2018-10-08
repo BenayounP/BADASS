@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!--suppress CheckTagEmptyBody -->
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- ************** -->
     <!-- COMMON STRINGS -->
     <!-- ************** -->
 
-    <string name="blank" translatable="false"></string>
+    <string name="blank" translatable="false" />
+    <string name="space">\u00A0</string>
     <string name="colon_with_spaces">:\u0020</string>
     <string name="dashes">--</string>
     <string name="and">and</string>
-    <string name="check" translatable="false">\u2713</string>
+    <string name="check" translatable="false" tools:keep="@string/check">\u2713</string>
 
     <!--Durations -->
     <string name="duration">Duration</string>
     <string name="start">Start</string>
-    <string name="between">Between</string>
+    <string name="between" tools:keep="@string/between">Between</string>
     <string name="end">End</string>
-    <string name="from">from</string>
+    <string name="from" tools:keep="@string/from">from</string>
 
     <!-- Periods -->
     <string name="day_initial">D</string>
@@ -33,17 +35,17 @@
     <string name="second">second</string>
     <string name="seconds">seconds</string>
     <string name="milliseconds_little">ms</string>
-    <string name="on_date">on</string>
-    <string name="week">week</string>
-    <string name="month">month</string>
-    <string name="today">today</string>
+    <string name="on_date" tools:keep="@string/on_date">on</string>
+    <string name="week" tools:keep="@string/week">week</string>
+    <string name="month" tools:keep="@string/month">month</string>
+    <string name="today" tools:keep="@string/today">today</string>
     <string name="tomorrow">tomorrow</string>
-    <string name="after_tomorrow">after tomorrow</string>
-    <string name="ab_today">tod</string>
-    <string name="yesterday">yesterday</string>
-    <string name="this_week">this week</string>
-    <string name="this_month">this month</string>
-    <string name="all_time">all time</string>
+    <string name="after_tomorrow" tools:keep="@string/after_tomorrow">after tomorrow</string>
+    <string name="ab_today" tools:keep="@string/ab_today">tod</string>
+    <string name="yesterday" tools:keep="@string/yesterday">yesterday</string>
+    <string name="this_week" tools:keep="@string/this_week">this week</string>
+    <string name="this_month" tools:keep="@string/this_month">this month</string>
+    <string name="all_time" tools:keep="@string/all_time">all time</string>
 
     <!-- Week -->
     <string name="monday">Monday</string>
@@ -64,7 +66,7 @@
         <item>@string/saturday</item>
     </string-array>
 
-    <string name="monday_diminutive">Mond</string>
+    <string name="monday_diminutive">Mon</string>
     <string name="tuesday_diminutive">Tue</string>
     <string name="wednesday_diminutive">Wed</string>
     <string name="thursday_diminutive">Thu</string>

@@ -16,7 +16,7 @@ public class XmlParser
 {
 	static public XmlPullParser getXmlParser(String inputString)
 	{
-		XmlPullParserFactory factory = null;
+		XmlPullParserFactory factory;
 		XmlPullParser xmlPullParser = null;
 
 		try

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set>
+<set xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@anim/enter_from_right">
     <translate xmlns:android="http://schemas.android.com/apk/res/android"
                android:fromXDelta="100%"
                android:toXDelta="0"

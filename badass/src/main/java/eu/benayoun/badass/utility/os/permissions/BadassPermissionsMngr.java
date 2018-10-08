@@ -20,7 +20,7 @@ public class BadassPermissionsMngr
 {
 	protected ArrayList<BadassPermissionCtrl> permissionsList;
 
-	public BadassPermissionCtrl getPermissionCtrl(String permissionName, int explanationStringId, PermissionListenerContract badassPermissionListener)
+	public BadassPermissionCtrl getPermissionCtrl(String permissionName, int explanationStringId, BadassPermissionListenerContract badassPermissionListener)
 	{
 		if (permissionsList==null)
 		{
@@ -65,17 +65,6 @@ public class BadassPermissionsMngr
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		Badass.getApplicationContext().startActivity(intent);
 	}
-
-
-	/**
-	 * INTERNAL COOKING
-	 */
-
-
-
-
-
-
 
 
 }

@@ -208,8 +208,5 @@ public class MathUtils
 	}
 
 
-	/**
-	 * INTERNAL COOKING
-	 */
 }
 

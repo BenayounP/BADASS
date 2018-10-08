@@ -5,7 +5,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerContract;
+import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
 import eu.benayoun.badass.utility.model.ArrayListUtils;
 
 
@@ -13,13 +13,12 @@ import eu.benayoun.badass.utility.model.ArrayListUtils;
  * Created by PierreB on 31/07/2017.
  */
 
-public class ReactiveLayout implements UIEventListenerContract
+public class ReactiveLayout implements BadassUIEventListenerContract
 {
 	protected View                                 mainView;
 
 	protected boolean isVisible                     =true;
-
-
+	
 	protected boolean hasBeenRefreshedOnce = false;
 	protected ArrayList<Boolean> monitoredUIEventsList;
 	protected ArrayList<ReactiveLayout> subLayoutsList;
@@ -90,6 +89,11 @@ public class ReactiveLayout implements UIEventListenerContract
 		isVisible = false;
 	}
 
+	public boolean isVisible()
+    {
+        return isVisible;
+    }
+
 
 
 	/**
@@ -103,13 +107,16 @@ public class ReactiveLayout implements UIEventListenerContract
 
 
 
-	protected void updateMainContent(int eventId, long eventTimeInMs)
+	@SuppressWarnings("EmptyMethod")
+    protected void updateMainContent(int eventId, long eventTimeInMs)
 	{
-
+        // override if you need to update the main content of the layput in addition of the sublayouts
 	}
 
-	protected boolean shouldUpdateOn(int eventId, long eventTimeInMs)
+	@SuppressWarnings("SameReturnValue")
+    protected boolean shouldUpdateOn(int eventId, long eventTimeInMs)
 	{
+	    // tweak for update only depending on the value of the eventId an/or eventTimeInMs
 		return true;
 	}
 

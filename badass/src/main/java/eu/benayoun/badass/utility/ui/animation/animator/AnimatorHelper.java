@@ -39,7 +39,7 @@ public class AnimatorHelper
 	@TargetApi(11)
 	public static ObjectAnimator getRotateAnimator(View view, int angle, int duration)
 	{
-		return new ObjectAnimator().ofFloat(view,
+		return ObjectAnimator.ofFloat(view,
 				"rotation", 0,angle).setDuration(duration);
 
 	}
@@ -47,7 +47,7 @@ public class AnimatorHelper
 	@TargetApi(11)
 	public static ObjectAnimator getPauseAnimator(View view, int duration)
 	{
-		return new ObjectAnimator().ofFloat(view,
+		return ObjectAnimator.ofFloat(view,
 			"rotation", 0,0).setDuration(duration);
 
 	}
@@ -55,7 +55,7 @@ public class AnimatorHelper
 	@TargetApi(11)
 	public static ObjectAnimator getEnterFromLeft(View view, int duration)
 	{
-		ObjectAnimator objectAnimator =new ObjectAnimator().ofFloat(view,
+		ObjectAnimator objectAnimator =ObjectAnimator.ofFloat(view,
 				"translationX",- ((View)view.getParent()).getWidth(),0).setDuration(duration);
 		objectAnimator.setInterpolator(new DecelerateInterpolator());
 		return objectAnimator;
@@ -64,7 +64,7 @@ public class AnimatorHelper
 	@TargetApi(11)
 	public static ObjectAnimator getExitToRight(View view, int duration)
 	{
-		ObjectAnimator objectAnimator = new ObjectAnimator().ofFloat(view,
+		ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view,
 				"translationX",((View)view.getParent()).getWidth()).setDuration(duration);
 		objectAnimator.setInterpolator(new AccelerateInterpolator());
 		return objectAnimator;
@@ -73,13 +73,9 @@ public class AnimatorHelper
 	@TargetApi(11)
 	public static ObjectAnimator getStopTranslation(View view)
 	{
-		return new ObjectAnimator().ofFloat(view,
+		return ObjectAnimator.ofFloat(view,
 				"translationX",0,0).setDuration(0);
 
 	}
-
-	/**
-	 * INTERNAL COOKING
-	 */
 
 }

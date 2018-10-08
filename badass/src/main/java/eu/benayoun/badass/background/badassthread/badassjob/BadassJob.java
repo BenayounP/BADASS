@@ -5,15 +5,15 @@ import android.text.format.DateUtils;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.R;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badass.utility.os.time.DurationUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
+import eu.benayoun.badass.utility.os.time.BadassUtilsDuration;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
-import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Status.RESOLVE_PROBLEM;
-import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Status.SCHEDULED;
-import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Status.SLEEPING;
-import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Status.START_ASAP;
-import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Status.START_AT_NEXT_CALL;
+import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.RESOLVE_PROBLEM;
+import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.SCHEDULED;
+import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.SLEEPING;
+import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.START_ASAP;
+import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.START_AT_NEXT_CALL;
 
 /**
  * Created by PierreB on 21/05/2017.
@@ -21,7 +21,7 @@ import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.Sta
 
 public abstract class BadassJob
 {
-	public enum Status
+	public enum State
 	{
 		SLEEPING,
         RESOLVE_PROBLEM,
@@ -34,7 +34,7 @@ public abstract class BadassJob
 
 	// FIELDS
 
-	protected Status status=getStartingStatus();
+	protected State state = getStartingState();
 
 	protected int globalProblemStringId=-1;
 	protected int specificReasonProblemStringId=-1;
@@ -48,12 +48,12 @@ public abstract class BadassJob
 	// METHODS
 
 	// ABSTRACT
-	protected abstract BadassJob.Status getStartingStatus();
+	protected abstract State getStartingState();
 	protected abstract void work();
 
 	// PUBLIC
 
-	public String getName()
+	protected String getName()
 	{
 		return this.getClass().getSimpleName();
 	}
@@ -63,8 +63,8 @@ public abstract class BadassJob
 	public boolean isStartRequired(long currentTimeInMs)
 	{
 		boolean shouldWork=false;
-		if (status == START_ASAP || status == START_AT_NEXT_CALL) shouldWork = true;
-		else if (status == RESOLVE_PROBLEM || status == SCHEDULED)
+		if (state == START_ASAP) shouldWork = true;
+		else if (state == RESOLVE_PROBLEM || state == SCHEDULED)
 		{
 			shouldWork = currentTimeInMs >= nextStartTimeInMs;
 		}
@@ -73,9 +73,9 @@ public abstract class BadassJob
 
 	public void StartIfRequired(long currentTimeInMs)
 	{
-		if (isStartRequired(currentTimeInMs))
+		if (isStartRequired(currentTimeInMs) || state == START_AT_NEXT_CALL)
 		{
-			BadassLog.logInFile("## " + getName() + "  works.");
+			BadassLog.verboseLogInFile("## " + getName() + "  on duty.");
 			work();
 		}
 	}
@@ -84,23 +84,23 @@ public abstract class BadassJob
 
 	public void askToStartAsap()
 	{
-		status = START_ASAP;
+		state = START_ASAP;
 		currentIntervalBeforeNextProblemResolutionTry = -1;
-		nextStartTimeInMs = BadassTimeUtils.getCurrentTimeInMs();
+		nextStartTimeInMs = BadassUtilsTime.getCurrentTimeInMs();
 	}
 
     public void prepareToStartAtNextCall()
     {
-        status = START_AT_NEXT_CALL;
+        state = START_AT_NEXT_CALL;
         currentIntervalBeforeNextProblemResolutionTry = -1;
         nextStartTimeInMs = NEVER_CALL_TIME_IN_MS;
     }
 
     public void askToResolveProblem()
     {
-        if (status != RESOLVE_PROBLEM)
+        if (state != RESOLVE_PROBLEM)
         {
-            status = RESOLVE_PROBLEM;
+            state = RESOLVE_PROBLEM;
             currentIntervalBeforeNextProblemResolutionTry = minProblemIntervalTimeInMs;
         }
         else
@@ -109,14 +109,14 @@ public abstract class BadassJob
             currentIntervalBeforeNextProblemResolutionTry = Math.max(currentIntervalBeforeNextProblemResolutionTry,minProblemIntervalTimeInMs);
             currentIntervalBeforeNextProblemResolutionTry = Math.min(currentIntervalBeforeNextProblemResolutionTry,maxProblemIntervalTimeInMs);
         }
-        nextStartTimeInMs = BadassTimeUtils.getCurrentTimeInMs()+ currentIntervalBeforeNextProblemResolutionTry;
-        BadassLog.logInFile("##! " + getName() +" On Problem next call in " + DurationUtils.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
+        nextStartTimeInMs = BadassUtilsTime.getCurrentTimeInMs()+ currentIntervalBeforeNextProblemResolutionTry;
+        BadassLog.verboseLogInFile("##! " + getName() +" On Problem next call in " + BadassUtilsDuration.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
     }
 
     public void goToSleep()
     {
         specificReasonProblemStringId = -1;
-        status = SLEEPING;
+        state = SLEEPING;
         currentIntervalBeforeNextProblemResolutionTry = -1;
         nextStartTimeInMs = NEVER_CALL_TIME_IN_MS;
     }
@@ -124,8 +124,8 @@ public abstract class BadassJob
     public void schedule(long nextWorkTimeInMs)
     {
         specificReasonProblemStringId = -1;
-        BadassLog.logInFile("## " + getName() + " schedule next working session at " + BadassTimeUtils.getCompleteDateString(nextWorkTimeInMs));
-        status = SCHEDULED;
+        BadassLog.verboseLogInFile("## " + getName() + " schedule next working session at " + BadassUtilsTime.getCompleteDateString(nextWorkTimeInMs));
+        state = SCHEDULED;
         currentIntervalBeforeNextProblemResolutionTry = -1;
         this.nextStartTimeInMs = nextWorkTimeInMs;
     }
@@ -158,7 +158,7 @@ public abstract class BadassJob
 			stringBuilder.append(Badass.getCharSequence(specificReasonProblemStringId));
 			if (globalProblemStringId!=-1)
 			{
-				stringBuilder.append("\n").append(" Next try: ").append(BadassTimeUtils.getTimeString(nextStartTimeInMs));
+				stringBuilder.append("\n").append(" Next try: ").append(BadassUtilsTime.getTimeString(nextStartTimeInMs));
 			}
 			return stringBuilder.toString();
 		}
@@ -167,27 +167,28 @@ public abstract class BadassJob
 	public String getCompleteStatusString()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
-		switch (status)
+		stringBuilder.append(getName()).append(": ");
+		switch (state)
 		{
-			case SLEEPING: stringBuilder.append(status.name());break;
 			case RESOLVE_PROBLEM:
 			{
-				stringBuilder.append(status.name()).append(". ");
+				stringBuilder.append(state.name());
 				if (specificReasonProblemStringId !=-1)
 				{
-					stringBuilder.append(Badass.getCharSequence(specificReasonProblemStringId)).append(". ");
+					stringBuilder.append(Badass.getCharSequence(specificReasonProblemStringId));
 				}
-				stringBuilder.append("Next call in: ").append(DurationUtils.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
+				stringBuilder.append(". Next call in: ").append(BadassUtilsDuration.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
 			}break;
-			case START_ASAP: stringBuilder.append(status.name());break;
-			case SCHEDULED: stringBuilder.append(status.name()).append(" at : ").append(BadassTimeUtils.getNiceTimeString(nextStartTimeInMs));break;
+            case SCHEDULED: stringBuilder.append(state.name()).append(" at : ").append(BadassUtilsTime.getNiceTimeString(nextStartTimeInMs));break;
+            default: stringBuilder.append(state.name());break;
 		}
+        stringBuilder.append(". ");
 		return  stringBuilder.toString();
 	}
 
-	public Status getStatus()
+	public State getState()
 	{
-		return status;
+		return state;
 	}
 
 	public  long getNextStartTimeInMs()

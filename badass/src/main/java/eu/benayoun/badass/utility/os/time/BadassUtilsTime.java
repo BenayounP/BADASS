@@ -1,6 +1,7 @@
 package eu.benayoun.badass.utility.os.time;
 
 
+import android.annotation.SuppressLint;
 import android.os.SystemClock;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -15,7 +16,7 @@ import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.R;
 
 
-public class BadassTimeUtils
+public class BadassUtilsTime
 {
 
 	// NOTE :
@@ -434,12 +435,12 @@ public class BadassTimeUtils
 
 	static public String getCompleteDateString(long timeInMs)
 	{
-		return BadassTimeUtils.getDateString(timeInMs)+ " : " + getTimeString(timeInMs);
+		return BadassUtilsTime.getDateString(timeInMs)+ " : " + getTimeString(timeInMs);
 	}
 
 	static public String getVerboseDate(long timeInMs)
 	{
-		return BadassTimeUtils.getDateString(timeInMs)+ " : " + getTimeStringWithMs(timeInMs);
+		return BadassUtilsTime.getDateString(timeInMs)+ " : " + getTimeStringWithMs(timeInMs);
 	}
 
 	static public String getDateString(long milliseconds)
@@ -540,9 +541,10 @@ public class BadassTimeUtils
 	 * INTERNAL COOKING
 	 */
 
-	protected static String getTimeStringFromCalendar(Calendar InCalendar, int displayType)
+	@SuppressLint("SimpleDateFormat")
+    protected static String getTimeStringFromCalendar(Calendar InCalendar, int displayType)
 	{
-		SimpleDateFormat sdf = null;
+		SimpleDateFormat sdf;
 		StringBuilder sBuilder = new StringBuilder();
 		String myFormat;
 

@@ -14,10 +14,10 @@ import android.os.Build;
 import android.os.SystemClock;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.BadassThreadMngr;
+import eu.benayoun.badass.background.badassthread.manager.BadassThreadMngr;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
-import eu.benayoun.badass.utility.os.time.DurationUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
+import eu.benayoun.badass.utility.os.time.BadassUtilsDuration;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 
@@ -27,7 +27,6 @@ import eu.benayoun.badass.utility.ui.BadassLog;
 @SuppressWarnings("ALL")
 public class BadassScheduler extends BroadcastReceiver
 {
-
 	static final protected String BROADCAST_FILTER   = "eu.benayoun.kilometer.mvc.controllers.services.BadassScheduler";
 
 	protected AlarmManager alarmManager;
@@ -43,14 +42,14 @@ public class BadassScheduler extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		BadassLog.logInFile("##! BadassScheduler OnReceive");
+		BadassLog.verboseLogInFile("##! BadassScheduler OnReceive");
 		badassThreadMngr.startThread();
 	}
 
 
 	public void setNextSession(long nextCallInMs)
 	{
-		long minNextCall = BadassTimeUtils.getCurrentTimeInMs()+ badassThreadMngr.getDefaultCallInterval();
+		long minNextCall = BadassUtilsTime.getCurrentTimeInMs()+ badassThreadMngr.getDefaultCallInterval();
 		if (nextCallInMs > minNextCall)
 		{
 			nextCallInMs = minNextCall;
@@ -71,8 +70,8 @@ public class BadassScheduler extends BroadcastReceiver
 		JobScheduler jobScheduler = (JobScheduler) Badass.getApplicationContext().getSystemService(Context.JOB_SCHEDULER_SERVICE);
 		if (nextCallInMs != BadassJob.NEVER_CALL_TIME_IN_MS)
 		{
-			long delayInMs = nextCallInMs - BadassTimeUtils.getCurrentTimeInMs();
-			BadassLog.logInFile("## Setjob in " + DurationUtils.getDurationStringWithMs(delayInMs)+ " ("+ BadassTimeUtils.getCompleteDateString(nextCallInMs)+")");
+			long delayInMs = nextCallInMs - BadassUtilsTime.getCurrentTimeInMs();
+			BadassLog.verboseLogInFile("## Setjob in " + BadassUtilsDuration.getDurationStringWithMs(delayInMs)+ " ("+ BadassUtilsTime.getCompleteDateString(nextCallInMs)+")");
 			jobScheduler.schedule(new JobInfo.Builder(ScheduleJobService.getJobServiceId(),
 					new ComponentName(Badass.getApplicationContext(),ScheduleJobService.getJobServiceClass()))
 					.setMinimumLatency(delayInMs)
@@ -81,8 +80,8 @@ public class BadassScheduler extends BroadcastReceiver
 		}
 		else
 		{
-			BadassLog.logInFile("##! JobService Canceled");
 			jobScheduler.cancel(JOB_ID);
+            BadassLog.verboseLogInFile("##! JobService Canceled");
 		}
 	}
 
@@ -100,7 +99,6 @@ public class BadassScheduler extends BroadcastReceiver
 
 	protected void setAlarm(long nextCallInMs)
 	{
-		long elapsedRealTime= SystemClock.elapsedRealtime();
 		if (alarmManager == null)
 		{
 			alarmManager = (android.app.AlarmManager) Badass.getApplicationContext()
@@ -111,12 +109,12 @@ public class BadassScheduler extends BroadcastReceiver
 		if (nextCallInMs != BadassJob.NEVER_CALL_TIME_IN_MS)
 		{
 			long elapsedDelayInMs = nextCallInMs - SystemClock.elapsedRealtime();
-			alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,  +elapsedDelayInMs, pendingIntent);
-			BadassLog.logInFile("##! Set alarm in " + DurationUtils.getDurationStringWithSecs(nextCallInMs - BadassTimeUtils.getCurrentTimeInMs()));
+			alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP,  +elapsedDelayInMs, pendingIntent);
+			BadassLog.verboseLogInFile("##! Set alarm in " + BadassUtilsDuration.getDurationStringWithSecs(nextCallInMs - BadassUtilsTime.getCurrentTimeInMs()));
 		}
 		else
 		{
-			BadassLog.logInFile("##! Alarm canceled");
+			BadassLog.verboseLogInFile("##! Alarm canceled");
 		}
 	}
 }

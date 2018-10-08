@@ -49,7 +49,7 @@ public class BadassViewUtils
 		view.setFocusable(true);
 	}
 
-	// TEXTVIEW
+	// TEXT VIEW
 
 
 

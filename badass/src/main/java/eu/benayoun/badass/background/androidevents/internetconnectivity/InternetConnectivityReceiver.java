@@ -1,5 +1,6 @@
 package eu.benayoun.badass.background.androidevents.internetconnectivity;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +17,10 @@ import eu.benayoun.badass.Badass;
  */
 public class InternetConnectivityReceiver extends WakefulBroadcastReceiver
 {
-	InternetConnectivityListenerContract InternetConnectivityListener;
-	boolean isCurrentlyConnected=false;
+	private BadassInternetConnectivityListenerContract InternetConnectivityListener;
+	private boolean isCurrentlyConnected;
 
-	public InternetConnectivityReceiver(InternetConnectivityListenerContract InternetConnectivityListener)
+	public InternetConnectivityReceiver(BadassInternetConnectivityListenerContract InternetConnectivityListener)
 	{
 		this.InternetConnectivityListener = InternetConnectivityListener;
 		IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
@@ -42,7 +43,7 @@ public class InternetConnectivityReceiver extends WakefulBroadcastReceiver
 	public boolean isConnectedToInternet()
 	{
 		ConnectivityManager cm      = (ConnectivityManager) Badass.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo         netInfo = cm.getActiveNetworkInfo();
+		@SuppressLint("MissingPermission") NetworkInfo         netInfo = cm.getActiveNetworkInfo();
 		//should check null because in airplane mode it will be null
 		return  (netInfo != null && (netInfo.isConnected() || netInfo.isAvailable()));
 	}
@@ -51,7 +52,7 @@ public class InternetConnectivityReceiver extends WakefulBroadcastReceiver
 	 * INTERNAL COOKING
 	 */
 
-	public void onConnectivityEvent()
+    private void onConnectivityEvent()
 	{
 		boolean isJustConnectedToInternet = isConnectedToInternet();
 		if (isJustConnectedToInternet != isCurrentlyConnected)

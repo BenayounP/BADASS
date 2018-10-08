@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- ************** -->
     <!-- COMMON STRINGS -->
@@ -7,15 +7,16 @@
 
     <!-- string name="blank" translatable="false"></string> -->
     <string name="colon_with_spaces">\u0020:\u0020</string>
+    <string name="space">\u00A0</string>
     <string name="dashes">--</string>
     <string name="and">et</string>
 
     <!--Durations -->
     <string name="duration">Durée</string>
     <string name="start">Début</string>
-    <string name="between">Entre</string>
+    <string name="between" tools:keep="@string/between">Entre</string>
     <string name="end">Fin</string>
-    <string name="from">à partir de</string>
+    <string name="from" tools:keep="@string/from">à partir de</string>
 
     <!-- Periods -->
     <string name="day_initial">j</string>
@@ -32,17 +33,17 @@
     <string name="second">seconde</string>
     <string name="seconds">secondes</string>
     <string name="milliseconds_little">ms</string>
-    <string name="on_date">le</string>
-    <string name="week">semaine</string>
-    <string name="month">mois</string>
-    <string name="today">aujourd\'hui</string>
+    <string name="on_date" tools:keep="@string/on_date">le</string>
+    <string name="week" tools:keep="@string/week">semaine</string>
+    <string name="month" tools:keep="@string/month">mois</string>
+    <string name="today" tools:keep="@string/today">aujourd\'hui</string>
     <string name="tomorrow">demain</string>
-    <string name="after_tomorrow">après-demain</string>
-    <string name="ab_today">auj</string>
-    <string name="yesterday">hier</string>
-    <string name="this_week">cette semaine</string>
-    <string name="this_month">ce mois</string>
-    <string name="all_time">depuis toujours</string>
+    <string name="after_tomorrow" tools:keep="@string/after_tomorrow">après-demain</string>
+    <string name="ab_today" tools:keep="@string/ab_today">auj</string>
+    <string name="yesterday" tools:keep="@string/yesterday">hier</string>
+    <string name="this_week" tools:keep="@string/this_week">cette semaine</string>
+    <string name="this_month" tools:keep="@string/this_month">ce mois</string>
+    <string name="all_time" tools:keep="@string/all_time">depuis toujours</string>
 
     <!-- Week -->
     <string name="monday">lundi</string>

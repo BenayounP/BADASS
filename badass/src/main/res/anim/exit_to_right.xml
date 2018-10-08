@@ -1,4 +1,5 @@
-<set>
+<set xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@anim/exit_to_right">
     <translate xmlns:android="http://schemas.android.com/apk/res/android"
                android:fromXDelta="0"
                android:toXDelta="100%"

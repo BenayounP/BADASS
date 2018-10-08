@@ -6,7 +6,7 @@ import android.text.format.DateUtils;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.R;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 
 
 
@@ -108,13 +108,13 @@ public class DurationInMs
 	    String startTimeString = "-1";
 	    if (startTime!=-1)
 	    {
-		    startTimeString = BadassTimeUtils.getVerboseDate(startTime);
+		    startTimeString = BadassUtilsTime.getVerboseDate(startTime);
 	    }
         String sStart = context.getString(R.string.start) + " : " + startTimeString;
 	    String endTimeString = "-1";
 	    if (endTime!=-1)
 	    {
-		    endTimeString = BadassTimeUtils.getVerboseDate(endTime);
+		    endTimeString = BadassUtilsTime.getVerboseDate(endTime);
 	    }
 	    String sEnd = context.getString(R.string.end) + " : " + endTimeString;
         String sDuration = context.getString(R.string.duration) + " : " + (endTime - startTime);
@@ -127,13 +127,13 @@ public class DurationInMs
 	    String startTimeString = "-1";
 	    if (startTime!=-1)
 	    {
-		    startTimeString = BadassTimeUtils.getDateString(startTime)+"|" + BadassTimeUtils.getTimeString(startTime);
+		    startTimeString = BadassUtilsTime.getDateString(startTime)+"|" + BadassUtilsTime.getTimeString(startTime);
 	    }
         String sStart = context.getString(R.string.start) + ": " + startTimeString;
 	    String endTimeString = "-1";
 	    if (endTime!=-1)
 	    {
-		    endTimeString = BadassTimeUtils.getTimeString(endTime);
+		    endTimeString = BadassUtilsTime.getTimeString(endTime);
 	    }
         String sEnd = context.getString(R.string.end) + ": " + endTimeString;
         return sStart + " " + sEnd ;

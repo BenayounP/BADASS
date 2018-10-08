@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- android navigation bar-->
-    <dimen name="android_navigation_bar">48dp</dimen>
+    <dimen name="android_navigation_bar" tools:keep="@dimen/android_navigation_bar">48dp</dimen>
 
     <!-- Padding -->
-    <dimen name="padding_nope">0dp</dimen>
-    <dimen name="padding_tiniest">1dp</dimen>
-	<dimen name="padding_micro">2dp</dimen>
-	<dimen name="padding_tiny">3dp</dimen>
-    <dimen name="padding_cute">4dp</dimen>
-	<dimen name="padding_standard">5dp</dimen>
-	<dimen name="padding_medium">6dp</dimen>
-	<dimen name="padding_big">8dp</dimen>
-    <dimen name="padding_big_big">12dp</dimen>
-	<dimen name="padding_huge">14dp</dimen>
-	<dimen name="padding_gargantua">20dp</dimen>
-	<dimen name="padding_40dp">40dp</dimen>
+    <dimen name="badass_padding_nope" tools:keep="@dimen/padding_nope">0dp</dimen>
+    <dimen name="badass_padding_atomic" tools:keep="@dimen/padding_tiniest">1dp</dimen>
+	<dimen name="badass_padding_micro" tools:keep="@dimen/padding_micro">2dp</dimen>
+	<dimen name="badass_padding_tiny" tools:keep="@dimen/padding_tiny">3dp</dimen>
+    <dimen name="badass_padding_cute" tools:keep="@dimen/padding_cute">4dp</dimen>
+	<dimen name="badass_padding_standard" tools:keep="@dimen/padding_standard">5dp</dimen>
+	<dimen name="badass_padding_medium" tools:keep="@dimen/padding_medium">6dp</dimen>
+	<dimen name="badass_padding_big" tools:keep="@dimen/padding_big">8dp</dimen>
+    <dimen name="badass_padding_bigger" tools:keep="@dimen/padding_big_big">12dp</dimen>
+	<dimen name="badass_padding_huge" tools:keep="@dimen/padding_huge">14dp</dimen>
+	<dimen name="badass_padding_gargantua" tools:keep="@dimen/padding_gargantua">20dp</dimen>
+	<dimen name="badass_padding_ginormous" tools:keep="@dimen/padding_40dp">40dp</dimen>
 
+    <!-- Text size -->
+    <!-- INSPIRED by : https://learnui.design/blog/android-material-design-font-size-guidelines.html -->
+    <dimen name="badass_text_title" tools:keep="@dimen/badass_text_title">20sp</dimen>
+    <dimen name="badass_text_body_micro" tools:keep="@dimen/badass_text_body_micro">8sp</dimen>
+    <dimen name="badass_text_body_tiny" tools:keep="@dimen/badass_text_body_tiny">10sp</dimen>
+    <dimen name="badass_text_body_little" tools:keep="@dimen/badass_text_body_little">12sp</dimen>
+    <dimen name="badass_text_body" tools:keep="@dimen/badass_text_body">14sp</dimen>
+    <dimen name="badass_text_body_big" tools:keep="@dimen/badass_text_body_big">16sp</dimen>
+    <dimen name="badass_text_body_bigger" tools:keep="@dimen/badass_text_body_bigger">18sp</dimen>
 
 </resources>

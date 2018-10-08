@@ -1,8 +1,8 @@
 package eu.benayoun.badass.background.androidevents;
 
-import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityListenerContract;
+import eu.benayoun.badass.background.androidevents.internetconnectivity.BadassInternetConnectivityListenerContract;
 import eu.benayoun.badass.background.androidevents.internetconnectivity.InternetConnectivityReceiver;
-import eu.benayoun.badass.background.androidevents.screen.ScreenActivityListenerContract;
+import eu.benayoun.badass.background.androidevents.screen.BadassScreenActivityListenerContract;
 import eu.benayoun.badass.background.androidevents.screen.ScreenActivityReceiver;
 
 /**
@@ -11,15 +11,15 @@ import eu.benayoun.badass.background.androidevents.screen.ScreenActivityReceiver
 
 public class AndroidEventsCtrl
 {
-	protected InternetConnectivityReceiver internetConnectivityReceiver;
-	protected ScreenActivityReceiver       screenActivityReceiver;
+	private InternetConnectivityReceiver internetConnectivityReceiver;
+	private ScreenActivityReceiver       screenActivityReceiver;
 
-	public void listenToInternetConnectivity(InternetConnectivityListenerContract internetConnectivityListener)
+	public void listenToInternetConnectivity(BadassInternetConnectivityListenerContract internetConnectivityListener)
 	{
 		internetConnectivityReceiver = new InternetConnectivityReceiver(internetConnectivityListener);
 	}
 
-	public void listenToScreenActivity(ScreenActivityListenerContract screenActivityListener)
+	public void listenToScreenActivity(BadassScreenActivityListenerContract screenActivityListener)
 	{
 		screenActivityReceiver = new ScreenActivityReceiver(screenActivityListener);
 	}

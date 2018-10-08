@@ -10,19 +10,18 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerContract;
+import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
+import eu.benayoun.badass.utility.ui.BadassLog;
 
 
 /**
  * Created by Pierre on 19/10/2015.
  */
-public abstract class NotificationCtrl implements UIEventListenerContract
+public abstract class BadassNotificationCtrl implements BadassUIEventListenerContract
 {
 	protected final boolean IS_NOT_ONGOING = false;
 
-	protected final String INTENT_EXTRA_NOTIFICATION_ID = "BADASSNOTIFICATIONMNGR.INTENT_EXTRA_NOTIFICATION_ID";
-
-	protected NotificationCompat.Builder customNotificationBuilder  = null;
+	protected final String INTENT_EXTRA_NOTIFICATION_ID = "NOTIFICATIONCTRL_INTENT_EXTRA_NOTIFICATION_ID";
 
 	protected NotificationChannelDataContainer notificationChannelDataContainer;
 
@@ -49,12 +48,12 @@ public abstract class NotificationCtrl implements UIEventListenerContract
 
 	// CLASSIC
 
-	protected void displayClassicAreaNotification(int notification_ID, int stringId, int iconId, int titleId, int colorId, Class mainActivityClass, int launchType)
+	protected void classicNotify(int notification_ID, int stringId, int iconId, int titleId, int colorId, Class mainActivityClass, int launchType)
 	{
-		displayClassicAreaNotification(notification_ID,Badass.getString(stringId), iconId,titleId,colorId,mainActivityClass,launchType);
+		notifyClassicAreaNotification(notification_ID,Badass.getString(stringId), iconId,titleId,colorId,mainActivityClass,launchType);
 	}
 
-	protected void displayClassicAreaNotification(int notification_ID, String mainText, int iconId, int titleId, int colorId, Class mainActivityClass, int launchType)
+	protected void notifyClassicAreaNotification(int notification_ID, String mainText, int iconId, int titleId, int colorId, Class mainActivityClass, int launchType)
 	{
 		Context   context   = Badass.getApplicationContext();
 		Resources resources = context.getResources();
@@ -76,14 +75,14 @@ public abstract class NotificationCtrl implements UIEventListenerContract
 
 	// CUSTOM
 
-	protected void setCustomNotification(int globalNotificationID, int sub_notification_ID, int priority, boolean isOngoing, int iconId, RemoteViews remoteViews, Class mainActivityClass, Class broadcastClass)
+	protected void notifyCustom(int notificationID, int intentId, int priority, boolean isOngoing, RemoteViews remoteViews, int iconId, Class mainActivityClass, Class broadcastClass)
 	{
 		if (remoteViews!=null && iconId!=-1)
 		{
-			customNotificationBuilder = new NotificationCompat.Builder(Badass.getApplicationContext(), notificationChannelDataContainer.channelId);
+            NotificationCompat.Builder customNotificationBuilder = new NotificationCompat.Builder(Badass.getApplicationContext(), notificationChannelDataContainer.channelId);
 			customNotificationBuilder.setDefaults(0);
-			customNotificationBuilder.setContentIntent(getLaunchActivityIntent(mainActivityClass, sub_notification_ID));
-			customNotificationBuilder.setDeleteIntent(getBroadcastDeleteIntent(broadcastClass, sub_notification_ID));
+			customNotificationBuilder.setContentIntent(getLaunchActivityIntent(mainActivityClass, intentId));
+			customNotificationBuilder.setDeleteIntent(getBroadcastDeleteIntent(broadcastClass, intentId));
 			customNotificationBuilder.setPriority(priority).setOngoing(isOngoing);
 			customNotificationBuilder
 					.setSmallIcon(iconId)
@@ -91,18 +90,18 @@ public abstract class NotificationCtrl implements UIEventListenerContract
 
 
 			NotificationManagerCompat.from(Badass.getApplicationContext()).notify(
-					globalNotificationID,
+					notificationID,
 					customNotificationBuilder.build());
 		}
 		else
 		{
-			if (remoteViews==null) Badass.logInFile("%%! setCustomNotification: remoteViews == null");
-			if (iconId==-1) Badass.logInFile("%%! setCustomNotification: iconId==0");
+			if (remoteViews==null) BadassLog.verboseLogInFile("%%! setCustomNotification: remoteViews == null");
+			if (iconId==-1) BadassLog.verboseLogInFile("%%! setCustomNotification: iconId==0");
 		}
 	}
 
 
-	protected PendingIntent getLaunchActivityIntent(Class mainActivityClass, int notificationID)
+	protected PendingIntent getLaunchActivityIntent(Class mainActivityClass, int intentId)
 	{
 		Context   context   = Badass.getApplicationContext();
 		final Intent launchActivityIntent = new Intent(context, mainActivityClass);
@@ -110,17 +109,17 @@ public abstract class NotificationCtrl implements UIEventListenerContract
 		launchActivityIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 		launchActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
 				Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		launchActivityIntent.putExtra(INTENT_EXTRA_NOTIFICATION_ID, notificationID);
+		launchActivityIntent.putExtra(INTENT_EXTRA_NOTIFICATION_ID, intentId);
 		return PendingIntent.
 				getActivity(context, 0,
 						launchActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 
-	protected PendingIntent getBroadcastDeleteIntent(Class broadcastReceiver, int notificationID)
+	protected PendingIntent getBroadcastDeleteIntent(Class broadcastReceiver, int intentID)
 	{
 		Context   context   = Badass.getApplicationContext();
 		Intent intent = new Intent(context, broadcastReceiver);
-		intent.putExtra(INTENT_EXTRA_NOTIFICATION_ID, notificationID);
+		intent.putExtra(INTENT_EXTRA_NOTIFICATION_ID, intentID);
 		return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 }

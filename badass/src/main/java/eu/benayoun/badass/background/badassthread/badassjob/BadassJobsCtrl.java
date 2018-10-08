@@ -4,7 +4,7 @@ package eu.benayoun.badass.background.badassthread.badassjob;
 import java.util.ArrayList;
 
 import eu.benayoun.badass.utility.model.ArrayListUtils;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 
 
 /**
@@ -14,13 +14,6 @@ import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
 public class BadassJobsCtrl
 {
 	protected ArrayList<BadassJob> badassJobList;
-	protected BadassJobListContract badassJobListContract;
-
-	public BadassJobsCtrl(BadassJobListContract badassJobListContract)
-	{
-		this.badassJobListContract = badassJobListContract;
-	}
-
 
 	public BadassJobsCtrl addJob(BadassJob badassJob)
 	{
@@ -38,15 +31,13 @@ public class BadassJobsCtrl
 		if (ArrayListUtils.isNOTNullOrEmpty(badassJobList))
 		{
 			// WORK IF NECCESSARY
-			badassJobListContract.onJobListStart();
 			while(IsJobsPending())
 			{
 				for (int i = 0; i < badassJobList.size(); i++)
 				{
-					badassJobList.get(i).StartIfRequired(BadassTimeUtils.getCurrentTimeInMs());
+					badassJobList.get(i).StartIfRequired(BadassUtilsTime.getCurrentTimeInMs());
 				}
 			}
-			badassJobListContract.onJobListEnd();
 		}
 	}
 
@@ -62,14 +53,16 @@ public class BadassJobsCtrl
 		return nextCall;
 	}
 
-	public String getStatusAnalysis()
+	public String getCompleteStatusAnalysis()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
 		BadassJob currentBadassJobCtrlr;
 		int           bgndTasksListSize = ArrayListUtils.getSize(badassJobList);
 		for (int i = 0; i < bgndTasksListSize; i++)
 		{
-            stringBuilder.append(badassJobList.get(i).getCompleteStatusString());
+            BadassJob badassJob = badassJobList.get(i);
+            stringBuilder.append(badassJob.getCompleteStatusString());
+            if (i!=bgndTasksListSize-1) stringBuilder.append("\n");
 		}
 		return stringBuilder.toString();
 	}
@@ -80,14 +73,14 @@ public class BadassJobsCtrl
 
 	protected boolean IsJobsPending()
 	{
-		boolean thereIsUpdates = false;
-		long    currentTimeInMs = BadassTimeUtils.getCurrentTimeInMs();
+		boolean thereIsJobsPending = false;
+		long    currentTimeInMs = BadassUtilsTime.getCurrentTimeInMs();
 		int bgndTasksListSize = ArrayListUtils.getSize(badassJobList);
 		for (int i = 0; i < bgndTasksListSize; i++)
 		{
-			thereIsUpdates = badassJobList.get(i).isStartRequired(currentTimeInMs);
-			if (thereIsUpdates) break;
+			thereIsJobsPending = badassJobList.get(i).isStartRequired(currentTimeInMs);
+			if (thereIsJobsPending) break;
 		}
-		return thereIsUpdates;
+		return thereIsJobsPending;
 	}
 }

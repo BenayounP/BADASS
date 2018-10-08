@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.events.UIEventListenerContract;
-import eu.benayoun.badass.utility.os.time.BadassTimeUtils;
+import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 
 
 @SuppressWarnings("ALL")
@@ -14,10 +14,10 @@ public class BadassUIBroadCastMngr
 	static protected final String EVENT_IDENTIFIER = "BADASS_EVENT_IDENTIFIER";
 	public static final String    ACTION_EVENT     = "BADASS_ACTION_EVENT";
 
-	protected UIEventListenerContract notificationAndWidgetsEventsLister;
+	protected BadassUIEventListenerContract notificationAndWidgetsEventsLister;
 
 
-	public void setNotificationAndWidgetsEventsLister(UIEventListenerContract notificationAndWidgetsEventsLister)
+	public void setNotificationAndWidgetsEventsLister(BadassUIEventListenerContract notificationAndWidgetsEventsLister)
 	{
 		this.notificationAndWidgetsEventsLister = notificationAndWidgetsEventsLister;
 	}
@@ -30,7 +30,7 @@ public class BadassUIBroadCastMngr
 
 		if (notificationAndWidgetsEventsLister !=null)
 		{
-			long nowInMs = BadassTimeUtils.getCurrentTimeInMs();
+			long nowInMs = BadassUtilsTime.getCurrentTimeInMs();
 			notificationAndWidgetsEventsLister.onEvent(eventId, nowInMs);
 
 		}

@@ -17,6 +17,8 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+def version_name = "0.6.041"
+
 android {
     signingConfigs {
     }
@@ -26,7 +28,7 @@ android {
         minSdkVersion 14
         targetSdkVersion project.TARGET_SDK_VERSION.toInteger()
         versionCode 1
-        versionName "v0.5.1-alpha1"
+        versionName "v"+ version_name
     }
     buildTypes {
         release {
@@ -38,7 +40,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    api "com.android.support:appcompat-v7:27.1.1"
+    api "com.android.support:appcompat-v7:28.0.0"
 }
 
 
@@ -56,7 +58,7 @@ ext {
     siteUrl = 'https://github.com/LissF/DiagonalScrollView'
     gitUrl = 'https://github.com/LissF/DiagonalScrollView.git'
 
-    libraryVersion = '0.5.1'
+    libraryVersion = version_name
 
     siteUrl = 'https://github.com/BenayounP/BADASS'
     gitUrl = 'https://github.com/BenayounP/BADASS.git'
