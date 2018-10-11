@@ -1,9 +1,13 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
+[ ![Download](https://api.bintray.com/packages/benayounp/Badass/BADASS/images/download.svg) ](https://bintray.com/benayounp/Badass/BADASS/_latestVersion)
+
 # BADASS
 BADASS (Benayoun's Asynchronous Data Android Simple System) fetch fresh remote data in background to give it instantly to user, even offline!
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
 
 ### Prerequisites
 
@@ -77,10 +81,10 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Apache License 2.0 - see the [LICENSE.md](LICENSE.md) file for details
+
+## Thanks
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* 
