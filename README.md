@@ -15,7 +15,8 @@ The goals of Badass is to work in the background to fetch data and save them as 
 
 ##  Features
 * Usable on Android API version 14 or newer
-* Java with no external libraries (use only appcompat-v7)
+* Java with no aditional external libraries (use only appcompat-v7)
+* Ultra light weight: .aar is < 100 kb
 * One Backround thread system that handles ALL data requests
 * Handle Android system events (Internet connection, Activity Lifecycle, Screen state)
 * Utilities to help you manage Storage, Permissions, Logs. 
