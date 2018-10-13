@@ -22,6 +22,8 @@ The goals of Badass is to work in the background to fetch data and save them as 
 * Utilities to help you manage Storage, Permissions, Logs. 
 
 ## Getting Started
+
+### Dependencies
 Just add this line in your module build.gradle dependencies
 
 ```java
@@ -29,7 +31,7 @@ dependencies {
     implementation 'com.github.benayounp:badass:0.6.041'
 }
 ```
-## Samples
+### Samples
 <img src="https://lh3.googleusercontent.com/LdrMoHsKsoCYWeQZmzptl5WS9UnW4i2UbpOASGoA0N2g9dv8tgHxsjCHw-IWtWsUbw=s180-rw" align="left" width="50" hspace="10" vspace="10">
 BadassWeather is a simple weatherApp using Badass framework. You can find it <a href="https://github.com/BenayounP/BadassWeather">here</a>.
 </br></br>
