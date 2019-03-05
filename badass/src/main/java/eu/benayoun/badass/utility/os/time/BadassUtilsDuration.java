@@ -5,8 +5,8 @@ import android.text.format.DateUtils;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.R;
-import eu.benayoun.badass.utility.math.MathUtils;
-import eu.benayoun.badass.utility.model.DurationInMs;
+import eu.benayoun.badass.utility.math.BadassUtilsMath;
+import eu.benayoun.badass.utility.model.BadassMsDuration;
 
 /**
  * Created by Pierre on 29/12/2015.
@@ -45,10 +45,10 @@ public class BadassUtilsDuration
 		}
 	}
 
-	static public DurationInMs getToday()
+	static public BadassMsDuration getToday()
 	{
 		long nowInMs = BadassUtilsTime.getCurrentTimeInMs();
-		return new DurationInMs(BadassUtilsTime.getStartOfTheDayInMs(nowInMs), BadassUtilsTime.getEndOfDayInMs(nowInMs));
+		return new BadassMsDuration(BadassUtilsTime.getStartOfTheDayInMs(nowInMs), BadassUtilsTime.getEndOfDayInMs(nowInMs));
 	}
 
 	static public String getRoundedDurationString(long totalMs)
@@ -331,7 +331,7 @@ public class BadassUtilsDuration
 	static long getDurationFromFirstDayOfWeek(long timeInMs, int firstDayOfWeek)
 	{
 		int thisDayOfWeek = BadassUtilsTime.getDayOfWeek(timeInMs);
-		int deltaDays = MathUtils.classicMod(thisDayOfWeek - firstDayOfWeek, 7);
+		int deltaDays = BadassUtilsMath.classicMod(thisDayOfWeek - firstDayOfWeek, 7);
 		return getDurationFromDeltaDay(timeInMs, deltaDays);
 	}
 

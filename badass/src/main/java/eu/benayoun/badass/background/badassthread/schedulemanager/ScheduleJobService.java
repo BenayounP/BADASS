@@ -11,7 +11,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.LocalBroadcastManager;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.ui.BadassUIBroadCastMngr;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 /**
@@ -21,11 +20,11 @@ import eu.benayoun.badass.utility.ui.BadassLog;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class ScheduleJobService extends JobService
 {
-	private static final int JOB_ID = 1234567;
+	protected static final int JOB_ID = 1234567;
 	public static final String SCHEDULE_JOB_SERVICE_INTENT= "SCHEDULE_JOB_SERVICE_INTENT";
 	JobParameters mJobParameters;
 
-    private BroadcastReceiver badassThreadMngrMessageReceiver;
+    protected BroadcastReceiver badassThreadMngrMessageReceiver;
 
 	@Override
 	public boolean onStartJob(final JobParameters jobParameters)

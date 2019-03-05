@@ -14,10 +14,10 @@ import android.os.Build;
 import android.os.SystemClock;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.background.badassthread.manager.BadassThreadMngr;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
-import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
+import eu.benayoun.badass.background.badassthread.manager.BadassThreadMngr;
 import eu.benayoun.badass.utility.os.time.BadassUtilsDuration;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 
@@ -47,20 +47,20 @@ public class BadassScheduler extends BroadcastReceiver
 	}
 
 
-	public void setNextSession(long nextCallInMs)
+	public void setNextSession(long nextCallTimeInMs)
 	{
 		long minNextCall = BadassUtilsTime.getCurrentTimeInMs()+ badassThreadMngr.getDefaultCallInterval();
-		if (nextCallInMs > minNextCall)
+		if (nextCallTimeInMs > minNextCall)
 		{
-			nextCallInMs = minNextCall;
+			nextCallTimeInMs = minNextCall;
 		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 		{
-			manageJobScheduler(nextCallInMs);
+			manageJobScheduler(nextCallTimeInMs);
 		}
 		else
 		{
-			setAlarm(nextCallInMs);
+			setAlarm(nextCallTimeInMs);
 		}
 	}
 
@@ -108,13 +108,19 @@ public class BadassScheduler extends BroadcastReceiver
 		alarmManager.cancel(pendingIntent);
 		if (nextCallInMs != BadassJob.NEVER_CALL_TIME_IN_MS)
 		{
-			long elapsedDelayInMs = nextCallInMs - SystemClock.elapsedRealtime();
-			alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP,  +elapsedDelayInMs, pendingIntent);
-			BadassLog.verboseLogInFile("##! Set alarm in " + BadassUtilsDuration.getDurationStringWithSecs(nextCallInMs - BadassUtilsTime.getCurrentTimeInMs()));
+		    long delayInLocalTime = nextCallInMs - BadassUtilsTime.getCurrentTimeInMs();
+			long nextCallWithElapsedRealTimeReferential =  delayInLocalTime + SystemClock.elapsedRealtime();
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                // only for kitkat and newer versions
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,  nextCallWithElapsedRealTimeReferential, pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,  nextCallWithElapsedRealTimeReferential, pendingIntent);
+            }
+			BadassLog.verboseLogInFile("##! Set next schedule in " + BadassUtilsDuration.getDurationStringWithSecs(delayInLocalTime)+".(Set at: " + BadassUtilsTime.getNiceTimeString(nextCallInMs)+ ").");
 		}
 		else
 		{
-			BadassLog.verboseLogInFile("##! Alarm canceled");
+			BadassLog.verboseLogInFile("##! No schedule planned");
 		}
 	}
 }

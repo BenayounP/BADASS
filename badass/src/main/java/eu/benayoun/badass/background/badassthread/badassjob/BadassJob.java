@@ -5,8 +5,8 @@ import android.text.format.DateUtils;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.R;
-import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.os.time.BadassUtilsDuration;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 import static eu.benayoun.badass.background.badassthread.badassjob.BadassJob.State.RESOLVE_PROBLEM;
@@ -53,7 +53,7 @@ public abstract class BadassJob
 
 	// PUBLIC
 
-	protected String getName()
+	protected String getJobName()
 	{
 		return this.getClass().getSimpleName();
 	}
@@ -75,7 +75,7 @@ public abstract class BadassJob
 	{
 		if (isStartRequired(currentTimeInMs) || state == START_AT_NEXT_CALL)
 		{
-			BadassLog.verboseLogInFile("## " + getName() + "  on duty.");
+			BadassLog.verboseLogInFile("## " + getJobName() + "  on duty.");
 			work();
 		}
 	}
@@ -110,7 +110,7 @@ public abstract class BadassJob
             currentIntervalBeforeNextProblemResolutionTry = Math.min(currentIntervalBeforeNextProblemResolutionTry,maxProblemIntervalTimeInMs);
         }
         nextStartTimeInMs = BadassUtilsTime.getCurrentTimeInMs()+ currentIntervalBeforeNextProblemResolutionTry;
-        BadassLog.verboseLogInFile("##! " + getName() +" On Problem next call in " + BadassUtilsDuration.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
+        BadassLog.verboseLogInFile("##! " + getJobName() +" On Problem next call in " + BadassUtilsDuration.getDurationStringWithSecs(currentIntervalBeforeNextProblemResolutionTry));
     }
 
     public void goToSleep()
@@ -124,7 +124,7 @@ public abstract class BadassJob
     public void schedule(long nextWorkTimeInMs)
     {
         specificReasonProblemStringId = -1;
-        BadassLog.verboseLogInFile("## " + getName() + " schedule next working session at " + BadassUtilsTime.getCompleteDateString(nextWorkTimeInMs));
+        BadassLog.verboseLogInFile("## " + getJobName() + " schedule next working session at " + BadassUtilsTime.getCompleteDateString(nextWorkTimeInMs));
         state = SCHEDULED;
         currentIntervalBeforeNextProblemResolutionTry = -1;
         this.nextStartTimeInMs = nextWorkTimeInMs;
@@ -167,7 +167,7 @@ public abstract class BadassJob
 	public String getCompleteStatusString()
 	{
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(getName()).append(": ");
+		stringBuilder.append(getJobName()).append(": ");
 		switch (state)
 		{
 			case RESOLVE_PROBLEM:

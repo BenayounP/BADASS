@@ -39,7 +39,7 @@ public class BadassPermissionCtrl
 		return id;
 	}
 
-	public String getName()
+	public String getPermissionName()
 	{
 		return name;
 	}

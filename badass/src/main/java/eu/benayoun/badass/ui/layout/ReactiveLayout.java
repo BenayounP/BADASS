@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
-import eu.benayoun.badass.utility.model.ArrayListUtils;
+import eu.benayoun.badass.utility.model.BadassUtilsArrayList;
 
 
 /**
@@ -42,7 +42,7 @@ public class ReactiveLayout implements BadassUIEventListenerContract
 		}
 
 		// update sub layouts
-		if (ArrayListUtils.isNOTNullOrEmpty(subLayoutsList))
+		if (BadassUtilsArrayList.isNOTNullOrEmpty(subLayoutsList))
 		{
 			for (int i=0;i<subLayoutsList.size();i++)
 			{
@@ -53,7 +53,7 @@ public class ReactiveLayout implements BadassUIEventListenerContract
 
 	public void releaseUI()
 	{
-		if (ArrayListUtils.isNOTNullOrEmpty(subLayoutsList))
+		if (BadassUtilsArrayList.isNOTNullOrEmpty(subLayoutsList))
 		{
 			for (int i = 0; i < subLayoutsList.size(); i++)
 			{

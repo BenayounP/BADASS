@@ -17,7 +17,7 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-def version_name = "0.6.041"
+def version_name = "0.6.0536"
 
 android {
     signingConfigs {

@@ -8,18 +8,18 @@ import android.os.Build;
 
 import java.util.ArrayList;
 
-import eu.benayoun.badass.background.badassthread.manager.BadassThreadListener;
-import eu.benayoun.badass.background.badassthread.manager.BadassThreadMngr;
 import eu.benayoun.badass.background.androidevents.AndroidEventsCtrl;
 import eu.benayoun.badass.background.androidevents.internetconnectivity.BadassInternetConnectivityListenerContract;
 import eu.benayoun.badass.background.androidevents.screen.BadassScreenActivityListenerContract;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJobsCtrl;
+import eu.benayoun.badass.background.badassthread.manager.BadassThreadListener;
+import eu.benayoun.badass.background.badassthread.manager.BadassThreadMngr;
 import eu.benayoun.badass.ui.BadassUIBroadCastMngr;
 import eu.benayoun.badass.ui.events.BadassUIEventListenerContract;
 import eu.benayoun.badass.ui.events.BadassUIEventsContract;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionCtrl;
-import eu.benayoun.badass.utility.os.permissions.BadassPermissionsMngr;
 import eu.benayoun.badass.utility.os.permissions.BadassPermissionListenerContract;
+import eu.benayoun.badass.utility.os.permissions.BadassPermissionsMngr;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 /**
@@ -39,15 +39,15 @@ public class Badass
 	}
 
 
-	private static Context applicationContext = null;
+	protected static Context applicationContext = null;
 
-	private static ActivityState activityState;
+	protected static ActivityState activityState;
 
-	private static BadassUIBroadCastMngr badassUIBroadCastMngr;
-	private static BadassThreadMngr badassThreadMngr;
-	private static BadassUIEventsContract AppUIEvents;
-	private static BadassPermissionsMngr badassPermissionsMngr;
-	private static AndroidEventsCtrl androidEventsCtrl;
+	protected static BadassUIBroadCastMngr badassUIBroadCastMngr;
+	protected static BadassThreadMngr badassThreadMngr;
+	protected static BadassUIEventsContract AppUIEvents;
+	protected static BadassPermissionsMngr badassPermissionsMngr;
+	protected static AndroidEventsCtrl androidEventsCtrl;
 
 
 	static public void init(Application applicationArg, BadassUIEventsContract AppUIEvents)
@@ -140,7 +140,7 @@ public class Badass
 	/*********************************
 	        PERMISSIONS MANAGER
 	  *********************************/
-	public static BadassPermissionCtrl getPermissionManager(String permissionName, int explanationStringId, BadassPermissionListenerContract badassPermissionListener)
+	public static BadassPermissionCtrl getPermissionCtrl(String permissionName, int explanationStringId, BadassPermissionListenerContract badassPermissionListener)
 	{
 		return getBadassPermissionsMngr().getPermissionCtrl(permissionName,explanationStringId,badassPermissionListener);
 	}
@@ -249,8 +249,6 @@ public class Badass
 
 	public static String getCaller() {return BadassLog.getMethodCaller(3);}
 
-	public static String  getSimpleClassName() {return BadassLog.getSimpleClassName(3);}
-
 	public static String getSimpleClassName(Object o) {return BadassLog.getSimpleClassName(o);}
 
 	/*****************
@@ -272,7 +270,7 @@ public class Badass
 	 * INTERNAL COOKING
 	 ********************/
 
-	private static BadassPermissionsMngr getBadassPermissionsMngr()
+	protected static BadassPermissionsMngr getBadassPermissionsMngr()
 	{
 		if (badassPermissionsMngr == null)
 		{

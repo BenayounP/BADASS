@@ -17,8 +17,8 @@ import eu.benayoun.badass.Badass;
  */
 public class InternetConnectivityReceiver extends WakefulBroadcastReceiver
 {
-	private BadassInternetConnectivityListenerContract InternetConnectivityListener;
-	private boolean isCurrentlyConnected;
+	protected BadassInternetConnectivityListenerContract InternetConnectivityListener;
+	protected boolean isCurrentlyConnected;
 
 	public InternetConnectivityReceiver(BadassInternetConnectivityListenerContract InternetConnectivityListener)
 	{
@@ -52,7 +52,7 @@ public class InternetConnectivityReceiver extends WakefulBroadcastReceiver
 	 * INTERNAL COOKING
 	 */
 
-    private void onConnectivityEvent()
+    protected void onConnectivityEvent()
 	{
 		boolean isJustConnectedToInternet = isConnectedToInternet();
 		if (isJustConnectedToInternet != isCurrentlyConnected)

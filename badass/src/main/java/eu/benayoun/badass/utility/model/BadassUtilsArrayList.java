@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by PierreB on 25/11/2016.
  */
-public class ArrayListUtils
+public class BadassUtilsArrayList
 {
 	public static boolean isNullOrEmpty(ArrayList arrayList)
 	{

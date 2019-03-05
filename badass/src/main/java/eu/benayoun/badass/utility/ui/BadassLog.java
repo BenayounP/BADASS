@@ -58,7 +58,7 @@ public class BadassLog
 	public static void allowLogInFile(String logsFileName)
 	{
 		allowLogInFile = true;
-		logInFilePermissionManager=Badass.getPermissionManager(Manifest.permission.WRITE_EXTERNAL_STORAGE, R.string.permission_write,null);
+		logInFilePermissionManager=Badass.getPermissionCtrl(Manifest.permission.WRITE_EXTERNAL_STORAGE, R.string.permission_write,null);
         BadassLog.logsFileName = logsFileName;
 	}
 

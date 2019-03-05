@@ -2,12 +2,12 @@ package eu.benayoun.badass.utility.model;
 
 import java.util.ArrayList;
 
-public class SmartArrayListCtrl<E>
+public class BadassList<E>
 {
     int currentIndex;
     ArrayList<E> arrayList;
 
-    public SmartArrayListCtrl(ArrayList<E> arrayList)
+    public BadassList(ArrayList<E> arrayList)
     {
         this.arrayList = arrayList;
         currentIndex =0;
@@ -36,8 +36,19 @@ public class SmartArrayListCtrl<E>
         if (isOutOfBound()==false) currentIndex++;
     }
 
-    public E getLastElement()
+
+   public int totalSize()
+   {
+        return arrayList.size();
+   }
+
+   public int remainingElements()
+   {
+       return arrayList.size()-1-currentIndex;
+   }
+
+   public E getLastElement()
     {
-        return ArrayListUtils.getLastElement(arrayList);
+        return BadassUtilsArrayList.getLastElement(arrayList);
     }
 }

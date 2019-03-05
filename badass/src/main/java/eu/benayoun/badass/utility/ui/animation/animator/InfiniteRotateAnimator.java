@@ -27,7 +27,7 @@ public class InfiniteRotateAnimator extends AnimatorListenerAdapter
 
 	public void stopAnimation()
 	{
-		AnimatorHelper.clearAnimation(animatorSet);
+		BadassUtilsAnimator.clearAnimation(animatorSet);
 		view = null;
 		animatorSet = null;
 	}
@@ -44,7 +44,7 @@ public class InfiniteRotateAnimator extends AnimatorListenerAdapter
 
 	void internalInfiniteRotate()
 	{
-		rotateObjectAnimator = AnimatorHelper.getRotateAnimator(view, 360, duration);
+		rotateObjectAnimator = BadassUtilsAnimator.getRotateAnimator(view, 360, duration);
 		animatorSet = new AnimatorSet();
 		animatorSet.play(rotateObjectAnimator);
 		animatorSet.addListener(this);

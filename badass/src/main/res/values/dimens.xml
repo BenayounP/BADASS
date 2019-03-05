@@ -13,7 +13,7 @@
 	<dimen name="badass_padding_standard" tools:keep="@dimen/padding_standard">5dp</dimen>
 	<dimen name="badass_padding_medium" tools:keep="@dimen/padding_medium">6dp</dimen>
 	<dimen name="badass_padding_big" tools:keep="@dimen/padding_big">8dp</dimen>
-    <dimen name="badass_padding_bigger" tools:keep="@dimen/padding_big_big">12dp</dimen>
+    <dimen name="badass_padding_bigger" tools:keep="@dimen/padding_bigger">12dp</dimen>
 	<dimen name="badass_padding_huge" tools:keep="@dimen/padding_huge">14dp</dimen>
 	<dimen name="badass_padding_gargantua" tools:keep="@dimen/padding_gargantua">20dp</dimen>
 	<dimen name="badass_padding_ginormous" tools:keep="@dimen/padding_40dp">40dp</dimen>

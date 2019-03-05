@@ -1,13 +1,11 @@
 package eu.benayoun.badass.background.badassthread.manager;
 
-import android.app.job.JobParameters;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.format.DateUtils;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import eu.benayoun.badass.Badass;
 import eu.benayoun.badass.background.badassthread.badassjob.BadassJob;
@@ -15,8 +13,8 @@ import eu.benayoun.badass.background.badassthread.badassjob.BadassJobsCtrl;
 import eu.benayoun.badass.background.badassthread.schedulemanager.BadassScheduler;
 import eu.benayoun.badass.background.badassthread.schedulemanager.ScheduleJobService;
 import eu.benayoun.badass.utility.androidsystem.BadassUtilsAndroidSystem;
-import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.os.time.BadassUtilsDuration;
+import eu.benayoun.badass.utility.os.time.BadassUtilsTime;
 import eu.benayoun.badass.utility.ui.BadassLog;
 
 /**
@@ -25,33 +23,36 @@ import eu.benayoun.badass.utility.ui.BadassLog;
 
 public class BadassThreadMngr
 {
-	private static final long DEFAULT_MIN_CALL_INTERVAL = DateUtils.HOUR_IN_MILLIS;
+	protected static final long DEFAULT_MIN_CALL_INTERVAL = DateUtils.HOUR_IN_MILLIS;
 
-	private BadassJobsCtrl jobsCtrl;
-	private BadassScheduler scheduler;
-	private ExecutorService executorService;
-	private Runnable workRunnable;
-	private boolean isRunning;
-	private BadassThreadListener badassThreadListener;
+	protected BadassJobsCtrl jobsCtrl;
+	protected BadassScheduler scheduler;
+    Handler handler;
+	protected Runnable workRunnable;
+	protected boolean isRunning;
+	protected BadassThreadListener badassThreadListener;
 
-	private long defaultCallInterval = DEFAULT_MIN_CALL_INTERVAL;
+	protected long defaultCallInterval = DEFAULT_MIN_CALL_INTERVAL;
 
 	public BadassThreadMngr(BadassJobsCtrl jobsCtrl, BadassThreadListener badassThreadListener)
 	{
 		this.jobsCtrl = jobsCtrl;
 		this .badassThreadListener = badassThreadListener;
-		executorService = Executors.newSingleThreadExecutor();
+		HandlerThread handlerThread = new HandlerThread("BadassThread");
+        handlerThread.start();
+
+        handler = new Handler(handlerThread.getLooper());
+
 		workRunnable = new Runnable() {
 			@Override
 			public void run()
 			{
-				workInBackground();
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+			    workInBackground();
 			}
 		};
 		scheduler = new BadassScheduler(this);
 	}
-
-
 
 	public void startThread()
     {
@@ -92,7 +93,7 @@ public class BadassThreadMngr
 	 * INTERNAL COOKING
 	 */
 
-    private void workInBackground()
+    protected void workInBackground()
     {
         if (isRunning == false)
         {
@@ -129,12 +130,12 @@ public class BadassThreadMngr
         }
     }
 
-    private void goInBackgroundAndStart()
+    protected void goInBackgroundAndStart()
 	{
-		executorService.execute(workRunnable);
+        handler.post(workRunnable);
 	}
 
-	private void warnEventualScheduleJobService()
+	protected void warnEventualScheduleJobService()
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {

@@ -14,7 +14,7 @@ import eu.benayoun.badass.R;
 /**
  * Created by Pierre on 12/07/2015.
  */
-public class SimpleAnimationHelper
+public class BadassUtilsSimpleAnimation
 {
 
 	static public void stopAllAnimation(final View view)
@@ -29,14 +29,16 @@ public class SimpleAnimationHelper
 		}
 	}
 
+    /**
+     SHAKE
+     **/
+
     static public void shake(final View view)
     {
         Animation swipe = AnimationUtils.loadAnimation(view.getContext(), R.anim.horizontal_shake);
 
         view.startAnimation(swipe);
     }
-
-	
 
 	static public void rotationalShake(final View view)
 	{
@@ -48,19 +50,40 @@ public class SimpleAnimationHelper
 		rotationalShake(view,true);
 	}
 
+    /**
+     ENTER
+     **/
+
+    // There is no eit animation because with this system the user would see the view disappear during animation and reapear after.
+    // If you want an exit animation see More advanced BadassUtilsAnimator
+
+
 	static public void enterFromLeft(final View view, long duration)
 	{
-		Animation enterFromLeftAnimation = AnimationUtils.loadAnimation(view.getContext(), R.anim.enter_from_left);
-		enterFromLeftAnimation.setDuration(duration);
-		view.startAnimation(enterFromLeftAnimation);
+		setAnimation(R.anim.enter_from_left, view, duration);
 	}
+
+    static public void enterFromRight(final View view, long duration)
+    {
+        setAnimation(R.anim.enter_from_right, view, duration);
+    }
+
+
+    static public void enterFromTop(final View view, long duration)
+    {
+        setAnimation(R.anim.enter_from_top, view, duration);
+    }
+
 
 	static public void enterFromBottom(final View view, long duration)
 	{
-		Animation enterFromBottomAnimation = AnimationUtils.loadAnimation(view.getContext(), R.anim.enter_from_bottom);
-		enterFromBottomAnimation.setDuration(duration);
-		view.startAnimation(enterFromBottomAnimation);
+		setAnimation(R.anim.enter_from_bottom, view, duration);
 	}
+
+
+    /**
+     ROTATION
+     **/
 
 
 	static public Animation getSimpleRotateAnimation(int angle, int duration)
@@ -80,6 +103,11 @@ public class SimpleAnimationHelper
 		final Animation infiniteRotateAnimation = AnimationUtils.loadAnimation(context, R.anim.infinite_rotation);
 		view.startAnimation(infiniteRotateAnimation);
 	}
+
+
+    /**
+     FADE
+     **/
 
 
 	static public void fade_in(final View view)
@@ -112,6 +140,10 @@ public class SimpleAnimationHelper
 		view.startAnimation(animation);
 	}
 
+    /**
+     ZOOM
+     **/
+
 	static public void zoom_in(final View view)
 	{
 		Context context = view.getContext();
@@ -142,6 +174,10 @@ public class SimpleAnimationHelper
 		view.startAnimation(zoomAnimation);
 	}
 
+    /**
+     SWAP
+     **/
+
 	static public void swapViews(final View toAppear,final View toDisappear)
 	{
 		Context context = toAppear.getContext();
@@ -168,6 +204,10 @@ public class SimpleAnimationHelper
 		});
 		toDisappear.startAnimation(zoomOutAnimation);
 	}
+
+    /**
+     SWITCH
+     **/
 
 	static public void switchVisibility(final View view, final int visibility)
 	{
@@ -285,4 +325,11 @@ public class SimpleAnimationHelper
 
 		view.startAnimation(shake);
 	}
+
+	static protected void setAnimation(int animationId, View view, long duration)
+    {
+        Animation animation = AnimationUtils.loadAnimation(view.getContext(),animationId);
+        animation.setDuration(duration);
+        view.startAnimation(animation);
+    }
 }

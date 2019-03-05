@@ -11,8 +11,8 @@ import eu.benayoun.badass.background.androidevents.screen.ScreenActivityReceiver
 
 public class AndroidEventsCtrl
 {
-	private InternetConnectivityReceiver internetConnectivityReceiver;
-	private ScreenActivityReceiver       screenActivityReceiver;
+	protected InternetConnectivityReceiver internetConnectivityReceiver;
+	protected ScreenActivityReceiver       screenActivityReceiver;
 
 	public void listenToInternetConnectivity(BadassInternetConnectivityListenerContract internetConnectivityListener)
 	{

@@ -53,7 +53,7 @@ public class BadassPermissionsMngr
 			}
 			else
 			{
-				badassPermissionCtrl.onPermissionDenied(activity.shouldShowRequestPermissionRationale( badassPermissionCtrl.getName()));
+				badassPermissionCtrl.onPermissionDenied(activity.shouldShowRequestPermissionRationale( badassPermissionCtrl.getPermissionName()));
 			}
 		}
 	}

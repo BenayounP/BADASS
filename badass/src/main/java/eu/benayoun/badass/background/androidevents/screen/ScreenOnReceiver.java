@@ -13,7 +13,7 @@ import eu.benayoun.badass.Badass;
  */
 public class ScreenOnReceiver extends WakefulBroadcastReceiver
 {
-	private ScreenActivityReceiver screenActivityReceiver;
+	protected ScreenActivityReceiver screenActivityReceiver;
 
 	public ScreenOnReceiver(ScreenActivityReceiver screenActivityReceiver)
 	{
@@ -38,7 +38,7 @@ public class ScreenOnReceiver extends WakefulBroadcastReceiver
 	 * INTERNAL COOKING
 	 */
 
-    private void onScreenON()
+    protected void onScreenON()
 	{
 		screenActivityReceiver.onScreenOn();
 	}

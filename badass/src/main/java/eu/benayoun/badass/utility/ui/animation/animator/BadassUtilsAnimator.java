@@ -10,7 +10,7 @@ import android.view.animation.DecelerateInterpolator;
 /**
  * Created by Pierre on 29/12/2015.
  */
-public class AnimatorHelper
+public class BadassUtilsAnimator
 {
 
 	// Zoom_In

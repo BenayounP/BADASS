@@ -5,9 +5,9 @@ package eu.benayoun.badass.background.androidevents.screen;
  */
 public class ScreenActivityReceiver
 {
-	private BadassScreenActivityListenerContract screenActivityListener;
-	private ScreenOnReceiver screenOnReceiver;
-	private ScreenOffReceiver screenOffReceiver;
+	protected BadassScreenActivityListenerContract screenActivityListener;
+	protected ScreenOnReceiver screenOnReceiver;
+	protected ScreenOffReceiver screenOffReceiver;
 
 	public ScreenActivityReceiver(BadassScreenActivityListenerContract screenActivityListener)
 	{

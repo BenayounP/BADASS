@@ -20,7 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import eu.benayoun.badass.Badass;
 
-public class BadassViewUtils
+public class BadassUtilsView
 {
 
     //KEYBOARD
@@ -80,21 +80,27 @@ public class BadassViewUtils
 		return LayoutInflater.from(frameLayout.getContext()).inflate(viewLayoutId, frameLayout, false);
 	}
 
+	// ********
 	// GRADIENT
+    // ********
 
-	// WARNING : Only start with a view with a gradient drawable bgnd defined in layout
+	// WARNING : Only start with a view with a gradient background defined in layout XML
 	@RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-	public static void setGradientBackgroundView(View view, int color1, int color2)
-	{
-		GradientDrawable drawable = (GradientDrawable) view.getBackground();
-		if (drawable!= null)
-		{
-			drawable.mutate();
-			int[] gradientColors = new int[]{color1, color2};
-			drawable.setOrientation(GradientDrawable.Orientation.TL_BR);
-			drawable.setColors(gradientColors);
-		}
-	}
+    public static void setGradientBackgroundView(View view, int color1, int color2)
+    {
+        GradientDrawable drawable = (GradientDrawable) view.getBackground();
+        if (drawable!= null)
+        {
+            drawable.mutate();
+            int[] gradientColors = new int[]{color1, color2};
+            drawable.setOrientation(GradientDrawable.Orientation.TL_BR);
+            drawable.setColors(gradientColors);
+        }
+        else
+        {
+            Badass.log("$$ Can't set view background: can't get view drawable");
+        }
+    }
 
     public static void doNotDisplayOnAndroidStatusBar(View view)
     {

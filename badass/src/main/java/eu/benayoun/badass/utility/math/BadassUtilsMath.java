@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by Pierre on 05/04/2015.
  */
-public class MathUtils
+public class BadassUtilsMath
 {
 	// ex : classicMod(50,10) =0
 	static public int classicMod(int a, int b)
@@ -125,7 +125,7 @@ public class MathUtils
 		getToughRound(2.536, 0) -> 3
 
 		Special
-		MathUtils.getToughRound(0.0000067f,1) -> ??
+		BadassUtilsMath.getToughRound(0.0000067f,1) -> ??
 	 */
 
 	static public float getToughRound(float originalValue, int digitsPreserved)
@@ -154,7 +154,7 @@ public class MathUtils
 		getToughRound(2.536, 0) -> 3
 
 		Special
-		MathUtils.getToughRound(0.0000067f,1) -> ??
+		BadassUtilsMath.getToughRound(0.0000067f,1) -> ??
 	 */
 
 	static public double getToughRound(double originalValue, int digitsPreserved)
@@ -206,7 +206,6 @@ public class MathUtils
 	{
 		return Double.longBitsToDouble(longValue);
 	}
-
 
 }
 

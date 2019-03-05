@@ -336,10 +336,15 @@ public class BadassUtilsTime
      * UTC TIME
      **********/
 
-	static public long getUTCOffsetInMs()
+	static public long getCurrent_UTC_OffsetInMs()
 	{
 		return TimeZone.getDefault().getOffset(getCurrentTimeInMs());
 	}
+
+    static public long get_UTC_OffsetInMsAtSpecificTime(long specificTime)
+    {
+        return TimeZone.getDefault().getOffset(specificTime);
+    }
 
     /***************
      * MILLISECONDS

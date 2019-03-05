@@ -11,9 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eu.benayoun.badass.Badass;
-import eu.benayoun.badass.utility.math.MathUtils;
+import eu.benayoun.badass.utility.math.BadassUtilsMath;
 
-public class StringUtils
+public class BadassUtilsString
 {
 
 	/**
@@ -30,9 +30,9 @@ public class StringUtils
 		return toLowerCase.substring(0, 1).toLowerCase() + toLowerCase.substring(1);
 	}
 
-	static public String getMaybeNullString(String potentiallyNullString)
+	static public String toLog(String string)
 	{
-		return (potentiallyNullString ==null ? "null" : potentiallyNullString);
+		return (string ==null ? "NULL" : (string.length()==0 ? "EMPTY" : string));
 	}
 
 
@@ -57,7 +57,7 @@ public class StringUtils
 
 	static public String getNiceRoundedFloat(float originalValue, int digitsPreserved)
 	{
-		return getNiceFloat(MathUtils.getToughRound(originalValue,digitsPreserved));
+		return getNiceFloat(BadassUtilsMath.getToughRound(originalValue,digitsPreserved));
 	}
 
 	@SuppressLint("DefaultLocale")
